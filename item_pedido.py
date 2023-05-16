@@ -40,5 +40,5 @@ class ItemPedido(Prato):
         self._quantidade = nova_quantidade
 
     def __repr__(self):
-        return f"\n{self.id_pedido}   {self.id_item}   {self.id_prato}   {self.nome_prato}          {self.quantidade}"
+        return f"\n{self.id_pedido}   {self.id_item}   {self.id_prato}   {self.nome_prato}          {self.quantidade}     {self.preco}"
 

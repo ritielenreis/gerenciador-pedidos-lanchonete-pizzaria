@@ -7,11 +7,9 @@ class Pedido:
     def __init__(self, id_cliente: Cliente.id_cliente,
                        id_pedido: Optional[int] = None,
                        itens_pedido: Optional[List[ItemPedido]] = None,
-                       taxa_servico: Optional[float] = None,
                        status = 'pendente'):
         self._id_cliente: Cliente = id_cliente
         self._id_pedido: int = id_pedido
-        self._taxa_servico: float = taxa_servico
         self._itens_pedido: List[ItemPedido] = itens_pedido
         self._status = status
 
@@ -47,13 +45,6 @@ class Pedido:
     def itens_pedido(self, alterar_itens_pedido):
         self._itens_pedido = alterar_itens_pedido
 
-    @property
-    def taxa_servico(self):
-        return self._taxa_servico
-
-    @taxa_servico.setter
-    def taxa_servico(self, alterar_taxa: int):
-        self._taxa_servico = alterar_taxa
 
     def __str__(self):
         return f'Pedido numero {self._id_pedido}'
