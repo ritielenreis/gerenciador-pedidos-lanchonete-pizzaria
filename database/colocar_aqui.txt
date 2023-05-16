@@ -1,0 +1,3 @@
+comando de criação de table, comando de inserção de valores iniciais, selects importantes
+
+Salvar aqui os arquivos do SQL separados por tipo: inserir, criar, selects uteis
