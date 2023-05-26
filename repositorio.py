@@ -143,7 +143,6 @@ class Repositorio:
                    for (id_pedido, id_cliente, itens_pedido, taxa_servico, status)
                    in resultados]
 
-        print(f'Pedidos:', [str(pedido) for pedido in pedidos])
         return pedidos
 
     def itens_pedido_atual(self, id_pedido_atual):

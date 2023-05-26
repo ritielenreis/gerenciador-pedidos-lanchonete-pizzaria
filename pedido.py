@@ -1,26 +1,14 @@
 from cliente import Cliente
 from item_pedido import ItemPedido
 from typing import List, Optional
-from preco_item_pedido import PrecoItemPedido
 
-class Pedido:
-    def __init__(self, id_cliente: Cliente.id_cliente,
-                       id_pedido: Optional[int] = None,
-                       itens_pedido: Optional[List[ItemPedido]] = None,
-                       status = 'pendente'):
-        self._id_cliente: Cliente = id_cliente
+
+class Pedido():
+    def __init__(self, id_cliente, id_pedido: Optional[int] = None, status='pendente'):
+        self._id_cliente: int = id_cliente
         self._id_pedido: int = id_pedido
-        self._itens_pedido: List[ItemPedido] = itens_pedido
         self._status = status
 
-    @property
-    def id_cliente(self):
-        return self._id_cliente
-
-    @id_cliente.setter
-    def id_cliente(self, novo_id_cliente):
-        self._id_cliente = novo_id_cliente
-        
     @property
     def id_pedido(self):
         return self._id_pedido
@@ -37,26 +25,18 @@ class Pedido:
     def status(self, novo_status):
         self._status = novo_status
 
-    @property
-    def itens_pedido(self):
-        return self._itens_pedido
-
-    @itens_pedido.setter
-    def itens_pedido(self, alterar_itens_pedido):
-        self._itens_pedido = alterar_itens_pedido
-
-
     def __str__(self):
         return f'Pedido numero {self._id_pedido}'
 
+    '''
     @staticmethod
-    def calcular_preco_pedido(taxa_servico: float, precosPedido: list[PrecoItemPedido] ) -> float:
+    def calcular_preco_pedido(taxa_servico: float) -> float:
         montante = taxa_servico
         for precoPedido in precosPedido:
             montante += precoPedido.calcular_preco()
         return montante
 
-'''
+
     def __str__(self):
        return f' Cliente {self._nome_cliente} fez pedido de {self._itens_pedido} ' \
                f'e a taxa de serviço é {self._taxa_servico}.' \

@@ -13,18 +13,6 @@ print(f'\n\n\n' )
 print(pedido_desejado)
 
 
-
-itens_pedido_desejado = []
-for item_pedido in itens_pedido:
-    if item_pedido.id_pedido == pedido_desejado.id_pedido:
-        itens_pedido_desejado.append(item_pedido)
-
-print("O numero de itens do pedido", pedido_desejado, "é", len(itens_pedido_desejado))
-
-pratos = salgados + pizzas + lanches
-
-print(len(pratos), "pratos registrados.")
-
 def encontrar_prato(id_prato):
     for prato in pratos:
         if prato.id_prato == id_prato:

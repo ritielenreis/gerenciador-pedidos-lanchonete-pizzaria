@@ -1,8 +1,11 @@
 from repositorio import Repositorio
 
+
 repositorio = Repositorio()
+
+
 def cardapio():
-    print('\n','='*20, 'CARDÁPIO VIRTUAL', '='*20, ' \n')
+    print('\n', '='*20, 'CARDÁPIO VIRTUAL', '='*20, ' \n')
     print('Lanches \t[1] \nSalgados \t[2] \nPizzas   \t[3] \n')
     while True:
         escolha = int(input('O que você gostaria de pedir?'))
@@ -33,6 +36,7 @@ def pizzas_cardapio():
     for pizza in repositorio.pizzas():
         print(pizza)
 
+
 def menu_pizza():
     while True:
         print('\nMonte sua Pizza          \t[1]\nPizzas prontas          \t[2]\nVoltar ao menu principal   \t[0]\n')
@@ -49,10 +53,7 @@ def menu_pizza():
         else:
             print('Opção inválida')
 
+
 def monte_pizza():
     print('\n', '>'*20, 'Opção ainda indisponivel no menu!', '<'*20)
     cardapio()
-
-
-
-
