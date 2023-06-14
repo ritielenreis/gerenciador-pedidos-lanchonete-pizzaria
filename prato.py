@@ -6,8 +6,6 @@ class Prato:
         self._validade = validade
         self._peso: int = peso
 
-
-
     @property
     def id_prato(self):
         return self._id_prato
@@ -47,4 +45,3 @@ class Prato:
     @peso.setter
     def peso(self, novo_peso):
         self._peso = novo_peso
-

@@ -34,4 +34,5 @@ class Pizza(Prato):
         self._molho = novo_molho
 
     def __str__(self):
-        return f'{self.id_prato}, {self.nome_prato}, {self.preco}, {self.borda},{self.recheio}, {self.molho}, {self.preco}'
+        return f'{self.id_prato}, {self.nome_prato}, {self.preco}, ' \
+               f'{self.borda},{self.recheio}, {self.molho}, {self.preco}'

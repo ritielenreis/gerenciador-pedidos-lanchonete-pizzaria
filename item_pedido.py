@@ -1,8 +1,9 @@
 from prato import Prato
 
+
 class ItemPedido(Prato):
-    def __init__(self, id_pedido, id_item,  id_prato, nome_prato, quantidade,  preco, validade, peso):
-        super().__init__(id_prato, nome_prato, preco, validade, peso)
+    def __init__(self, id_pedido, id_item,  id_prato, quantidade):
+        super().__init__(id_prato)
         self._id_item = id_item
         self._id_pedido = id_pedido
         self. _quantidade = quantidade
@@ -40,5 +41,5 @@ class ItemPedido(Prato):
         self._quantidade = nova_quantidade
 
     def __repr__(self):
-        return f"\n{self.id_pedido}   {self.id_item}   {self.id_prato}   {self.nome_prato}          {self.quantidade}     {self.preco}"
-
+        return f'\n{self.id_item}   {self.id_pedido}   {self.id_prato}   ' \
+               f'{self.nome_prato}          {self.quantidade}     {self.preco}'

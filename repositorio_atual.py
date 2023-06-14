@@ -1,31 +1,24 @@
 from mysql.connector import connect, Error
 from item_pedido import ItemPedido
-from pedido import Pedido
-from pedido_info import PedidoInfo
+from info_item_pedido import InfoItemPedido
 from cliente import Cliente
-from pizza import Pizza
-from lanche import Lanche
-from salgado import Salgado
-from typing import Any, List
-from prato import Prato
+from pedido_info import PedidoInfo
+from typing import List
 
 
 class RepositorioAtual:
     def __init__(self):
-        self.connection = connect(user='dono_lanchonete',
-                         password='uma_senha_forte',
-                         host='localhost',
-                         database='lanchonete')
+        self.connection = \
+            connect(user='dono_lanchonete', password='uma_senha_forte', host='localhost', database='lanchonete')
 
     def _executar_query(self, query):
         try:
-            with self.connection:
-
-                with self.connection.cursor() as cursor:
-                    cursor.execute(query)
+            cursor = self.connection.cursor()
+            cursor.execute(query)
+            self.connection.commit()
         except Error as e:
-            print(e)
-
+            self.connection.rollback()
+            print(f"[{self.__class__.__name__}] Error:", e)
 
     def _retornar_resultado(self, query):
         try:
@@ -33,7 +26,7 @@ class RepositorioAtual:
             cursor.execute(query)
             return cursor.fetchone()
         except Error as e:
-            print(e)
+            print(f"[{self.__class__.__name__}] Error:", e)
 
     def _retornar_resultados(self, query):
         try:
@@ -41,9 +34,9 @@ class RepositorioAtual:
             cursor.execute(query)
             return cursor.fetchall()
         except Error as e:
-            print(e)
+            print(f"[{self.__class__.__name__}] Error:", e)
 
-    def itens_pedido_atual(self, id_pedido) -> List[ItemPedido]:
+    def itens_pedido_atual(self, id_pedido) -> List[InfoItemPedido]:
         query_item_pedido = f"""
             SELECT  item_pedido.id_pedido, item_pedido.id_item,  item_pedido.id_prato,
             prato.nome_prato, item_pedido.quantidade,  prato.preco, prato.validade, prato.peso
@@ -55,45 +48,9 @@ class RepositorioAtual:
         resultados = self._retornar_resultados(query_item_pedido)
         itens_pedido = []
         for (id_pedido, id_item,  id_prato, nome_prato, quantidade, preco, validade, peso) in resultados:
-            item_pedido = ItemPedido(id_pedido, id_item,  id_prato, nome_prato, quantidade, preco, validade, peso)
+            item_pedido = InfoItemPedido(id_pedido, id_item,  id_prato, nome_prato, quantidade, preco, validade, peso)
             itens_pedido.append(item_pedido)
         return itens_pedido
-
-    def apedido_atual(self, id_pedido):
-        query_item_pedido = f"""
-            SELECT  item_pedido.id_pedido, 
-            FROM item_pedido
-            JOIN pedido ON item_pedido.id_pedido = pedido.id_pedido
-            JOIN prato ON item_pedido.id_prato = prato.id_prato
-            WHERE item_pedido.id_pedido = {id_pedido};          
-        """
-        resultados = self._retornar_resultados(query_item_pedido)
-        itens_pedido = []
-        for (id_pedido, id_item,  id_prato, nome_prato, quantidade, preco, validade, peso) in resultados:
-            item_pedido = ItemPedido(id_pedido, id_item,  id_prato, nome_prato, quantidade, preco, validade, peso)
-            itens_pedido.append(item_pedido)
-        print(itens_pedido)
-        return itens_pedido
-
-
-    def calculo_preco_itens(self, id_pedido):
-        query_preco_itens = f"""
-            SELECT  item_pedido.id_pedido, item_pedido.id_item,  item_pedido.id_prato,
-            prato.nome_prato, item_pedido.quantidade,  prato.preco, prato.validade, prato.peso
-            FROM item_pedido
-            JOIN pedido ON item_pedido.id_pedido = pedido.id_pedido
-            JOIN prato ON item_pedido.id_prato = prato.id_prato
-            WHERE item_pedido.id_pedido = {id_pedido};          
-        """
-        resultados = self._retornar_resultados(query_preco_itens)
-        precos = []
-        for (id_pedido, id_item, id_prato, nome_prato, quantidade, preco, validade, peso) in resultados:
-            item_pedido = ItemPedido(id_pedido, id_item, id_prato, nome_prato, quantidade, preco, validade, peso)
-            precos.append(int(item_pedido.preco) * int(item_pedido.quantidade))
-        preco_itens = sum(precos)
-        print(preco_itens)
-        return preco_itens
-
 
 
     def pedido_atual(self, id_pedido):
@@ -109,3 +66,21 @@ class RepositorioAtual:
             pedido = PedidoInfo(id_cliente, nome_cliente, id_pedido, status)
             list_pedido_atual = pedido
         return list_pedido_atual
+
+    def info_cliente(self, id_cliente):
+        query_info_cliente = f"SELECT * FROM cliente WHERE id_cliente = {id_cliente};"
+        resultado = self._retornar_resultado(query_info_cliente)
+        info_cliente = ''
+        for (id_cliente, nome_cliente, telefone, rua, cidade, cod_postal, historico_pedidos) in resultado:
+            cliente = Cliente(id_cliente, nome_cliente, telefone, rua, cidade, cod_postal, historico_pedidos)
+            info_cliente = cliente
+        return info_cliente
+
+    def info_item(self, id_pedido, id_item):
+        query_info_item = f"SELECT * FROM item_pedido WHERE id_pedido = {id_pedido} and id_item = {id_item};;"
+        resultado = self._retornar_resultado(query_info_item)
+        info_item = ''
+        for (id_pedido, id_item,  id_prato, quantidade) in resultado:
+            item = ItemPedido(id_pedido, id_item,  id_prato, quantidade)
+            info_item = item
+        return info_item

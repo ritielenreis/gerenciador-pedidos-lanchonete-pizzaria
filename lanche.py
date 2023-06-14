@@ -33,4 +33,4 @@ class Lanche(Prato):
         self._molho = novo_molho
 
     def __str__(self):
-        return f'{self.id_prato}   \t{self.nome_prato}   \t{self.preco}   \t{self.pao},{self.recheio}, {self.molho}   \t{self.preco}'
+        return f'{self.id_prato}   \t{self.nome_prato}   \t{self.preco}    \t{self.pao},{self.recheio}, {self.molho}   \t{self.preco}'

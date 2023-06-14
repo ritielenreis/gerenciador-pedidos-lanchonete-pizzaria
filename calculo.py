@@ -1,14 +1,3 @@
-from item_pedido import ItemPedido
-from pedido import Pedido
-from cliente import Cliente
-from pizza import Pizza
-from lanche import Lanche
-from salgado import Salgado
-from prato import Prato
-from repositorio import Repositorio
-
-
-
 class Calculo:
     #print('Preço por item_pedido, Total, Nota fiscal, Troco.')
     def __init__(self, repositorio_atual):
@@ -24,9 +13,7 @@ class Calculo:
             precos.append(int(item.preco) * int(item.quantidade))
         return sum(precos)
 
-
     def calculo_taxa(self, id_pedido):
         precos = self.calculo_preco_itens(id_pedido)
         calculo_taxa = precos * 0.1
         return calculo_taxa
-

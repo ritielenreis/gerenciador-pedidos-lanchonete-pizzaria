@@ -2,7 +2,8 @@ from prato import Prato
 
 
 class Salgado(Prato):
-    def __init__(self, id_prato, nome_prato: str, preco: float, validade: str, peso: int, massa: str, recheio: list, tipo: str):
+    def __init__(self, id_prato, nome_prato: str, preco: float, validade: str, peso: int, massa: str,
+                 recheio: list, tipo: str):
         super().__init__(id_prato, nome_prato, preco, validade, peso)
         self._massa = massa
         self._recheio = recheio
@@ -33,4 +34,5 @@ class Salgado(Prato):
         self._tipo = novo_tipo
 
     def __str__(self):
-        return f'{self.id_prato}, {self.nome_prato}, {self.preco}, {self.massa},{self.recheio}, {self.tipo}, {self.preco}'
+        return f'{self.id_prato}, {self.nome_prato}, {self.preco}, ' \
+               f'{self.massa}, {self.recheio}, {self.tipo}, {self.preco}'

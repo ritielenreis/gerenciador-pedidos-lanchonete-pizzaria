@@ -1,8 +1,3 @@
-from cliente import Cliente
-from item_pedido import ItemPedido
-from typing import List, Optional
-
-
 class PedidoInfo:
     def __init__(self, id_cliente, nome_cliente, id_pedido: int = None, status='pendente'):
         self._id_cliente: int = id_cliente
