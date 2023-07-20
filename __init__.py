@@ -1,3 +1,16 @@
+from calculo import Calculo
+from menu_cliente import Cardapio
+from comandos import *
+from menu_adm import MenuADM
+from menu_inicial import MenuInicial
+from nota_fiscal import NotaFiscal
+from servico_adm import ServicoAdm
+from servico_cliente import ServicoCliente
+from teste import *
+
+
+
+
 '''
 A lanchonete “Quase Três Lanches” está em fase de crescimento em seu delivery e atendimento e
 pretende expandir seu funcionamento. Porém, os donos sempre operaram utilizando

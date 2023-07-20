@@ -1,4 +1,4 @@
-from prato import Prato
+from .prato import Prato
 
 
 class InfoItemPedido(Prato):
