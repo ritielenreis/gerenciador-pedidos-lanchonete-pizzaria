@@ -1,0 +1,79 @@
+#Criar banco de dados e tables
+
+create schema Lanchonete;
+
+CREATE USER 'dono_lanchonete'@'localhost' IDENTIFIED BY 'uma_senha_forte';
+GRANT SELECT, INSERT, UPDATE, DELETE ON lanchonete.* TO 'dono_lanchonete'@'localhost';
+
+CREATE TABLE prato(
+    id_prato INT(5) NOT NULL,
+    nome_prato VARCHAR(60) NOT NULL,
+    preco DECIMAL(5,2) NULL,
+    validade int (3) not null,
+    peso varchar (15) not null,
+    
+    primary key(id_prato)
+);
+ 
+CREATE TABLE pizza(
+    id_prato INT(5) NOT NULL,
+    molho VARCHAR(20) NOT NULL,
+    recheio JSON,
+    borda VARCHAR(20) NOT NULL,
+    
+    foreign key(id_prato) references prato(id_prato)
+);
+
+create table lanche(
+	id_prato INT(5) NOT NULL,
+	pao varchar(20) not null,
+	recheio JSON,
+	molhos JSON,
+    
+    foreign key(id_prato) references prato(id_prato)
+);
+
+create table salgado(
+	id_prato INT(5) NOT NULL,
+	recheio JSON,
+	massa varchar(20) not null,
+    
+    foreign key(id_prato) references prato(id_prato)
+);
+
+CREATE TABLE cliente(
+    id_cliente INT(5) NOT NULL,
+    nome_cliente VARCHAR(60) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    rua VARCHAR(60) NOT NULL,
+    cidade VARCHAR(60) NOT NULL,
+    cod_Postal VARCHAR(60) NOT NULL,
+    historico_pedidos JSON NOT NULL,
+    
+    primary key(id_cliente)
+);
+
+CREATE TABLE pedido(
+    id_pedido INT(5) NOT NULL,
+    id_cliente INT(5) NOT NULL,
+    taxa_servico DECIMAL(5,2) NULL,
+    
+    primary key(id_pedido)
+);
+
+CREATE TABLE item_pedido(
+	id_pedido INT(5) NOT NULL,
+    id_prato INT(5) NOT NULL,
+    quantidade INT(5) NOT NULL,
+    
+    foreign key(id_prato) references prato(id_prato),
+    foreign key(id_pedido) references pedido(id_pedido)
+);
+
+CREATE TABLE adm(
+    id_adm INT(5) NOT NULL,
+    nome_adm VARCHAR(60) NOT NULL,
+    senha VARCHAR(8) NOT NULL,
+
+    primary key(id_adm)
+);
