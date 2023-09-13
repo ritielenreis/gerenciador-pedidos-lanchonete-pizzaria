@@ -1,0 +1,64 @@
+# Alterações
+
+ALTER TABLE salgado ADD tipo_salgado ENUM('Frito', 'Assado') NOT NULL;
+
+UPDATE salgado SET tipo_salgado = 'Frito' WHERE id_prato IN (14, 16, 17, 18, 19, 22);
+UPDATE salgado SET tipo_salgado = 'Assado' WHERE id_prato IN (15, 20, 21);
+
+DELETE FROM pedido
+WHERE id_pedido < 5;
+
+ALTER TABLE pedido
+DROP COLUMN pratos_consumidos;
+
+ALTER TABLE item_pedido
+ADD COLUMN id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+ALTER TABLE item_pedido
+MODIFY COLUMN id_item INT AUTO_INCREMENT;
+
+SET FOREIGN_KEY_CHECKS=0;
+ALTER TABLE prato
+MODIFY COLUMN id_prato INT NOT NULL AUTO_INCREMENT;
+SET FOREIGN_KEY_CHECKS=1;
+
+ALTER TABLE cliente
+MODIFY COLUMN id_cliente INT AUTO_INCREMENT;
+
+ALTER TABLE cliente
+MODIFY COLUMN rua VARCHAR(60) NULL,
+MODIFY COLUMN cidade VARCHAR(60) NULL,
+MODIFY COLUMN cod_Postal VARCHAR(60) NULL,
+MODIFY COLUMN historico_pedidos JSON NULL;
+
+ALTER TABLE item_pedido
+ADD CONSTRAINT fk_item_pedido_pedido FOREIGN KEY (id_pedido) REFERENCES pedido (id_pedido),
+ADD CONSTRAINT fk_item_pedido_prato FOREIGN KEY (id_prato) REFERENCES prato (id_prato);
+
+ALTER TABLE item_pedido CHANGE id id_item INT NOT NULL;
+   
+INSERT INTO pizza (id_prato, molho, recheio, borda) VALUES (23, 'molho pesto', '{"sabores": ["calabresa", "cebola", "mangericão"]}', 'catupiry');
+
+ALTER TABLE Pedido
+ADD COLUMN status VARCHAR(50) DEFAULT 'pendente' NOT NULL;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE pedido
+MODIFY COLUMN id_pedido INT AUTO_INCREMENT;
+ALTER TABLE pedido AUTO_INCREMENT = 16;
+
+ALTER TABLE item_pedido
+ADD CONSTRAINT fk_id_pedido FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido);
+
+SET FOREIGN_KEY_CHECKS=1;
+
+INSERT INTO pedido (id_cliente)
+VALUES (1);
+	
+ALTER TABLE pedido DROP COLUMN taxa_servico;
+
+Insert into pedido (id_cliente) 
+VALUES (7);
+
+INSERT INTO salgado (id_prato, recheio, massa, tipo_salgado) VALUES (48, '{"tipo": "Pastel", "recheio": "Brocolis com Provolone"}', 'Massa de Pastel', 'Frito');
