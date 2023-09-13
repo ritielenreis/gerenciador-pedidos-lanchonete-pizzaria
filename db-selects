@@ -1,0 +1,104 @@
+# Selects
+
+SELECT
+    pedido.id_pedido,
+    cliente.id_cliente,
+    cliente.nome_cliente, 
+    prato.id_prato, 
+    prato.nome_prato, 
+    prato.preco,
+    item_pedido.quantidade,
+    pedido.taxa_servico
+FROM prato
+JOIN item_pedido ON prato.id_prato = item_pedido.id_prato
+JOIN pedido      ON item_pedido.id_pedido = pedido.id_pedido
+JOIN cliente     ON pedido.id_cliente = cliente.id_cliente;
+
+SELECT
+	prato.id_prato,
+    prato.nome_prato,
+    prato.preco,
+    lanche.pao,
+    lanche.recheio,
+    lanche.molhos
+FROM prato
+JOIN lanche ON prato.id_prato = lanche.id_prato;
+
+
+SELECT
+	prato.id_prato,
+    prato.nome_prato,
+    prato.preco,
+    pizza.molho,
+    pizza.recheio,
+    pizza.borda  
+FROM prato
+JOIN pizza ON prato.id_prato = pizza.id_prato;
+
+SELECT
+	prato.id_prato,
+    prato.nome_prato,
+    prato.preco,
+    salgado.recheio,
+    salgado.massa,
+    salgado.tipo_salgado
+FROM prato
+JOIN salgado ON prato.id_prato = salgado.id_prato;
+
+SELECT
+	pedido.id_pedido,
+    pedido.status,
+    item_pedido.id_item,
+    item_pedido.quantidade,
+    prato.id_prato,
+    prato.nome_prato,
+    prato.preco,
+    cliente.id_cliente,
+    cliente.nome_cliente,
+    pedido.taxa_servico
+FROM pedido
+JOIN item_pedido ON pedido.id_pedido = item_pedido.id_prato
+JOIN prato ON item_pedido.id_prato = prato.id_prato
+JOIN cliente ON pedido.id_cliente = cliente.id_cliente;
+ 
+SELECT
+	prato.id_prato,
+    prato.nome_prato,
+    prato.preco,
+    lanche.pao,
+    lanche.recheio,
+    lanche.molhos,
+    pizza.molho,
+    pizza.recheio,
+    pizza.borda,
+    salgado.recheio,
+    salgado.massa,
+    salgado.tipo_salgado
+  
+FROM prato
+LEFT JOIN salgado ON prato.id_prato = salgado.id_prato
+LEFT JOIN lanche      ON prato.id_prato = lanche.id_prato
+LEFT JOIN pizza     ON prato.id_prato = pizza.id_prato;
+
+SELECT  item_pedido.id_item,
+        item_pedido.id_pedido,
+		item_pedido.id_prato,
+        prato.nome_prato,
+        prato.preco,
+		item_pedido.quantidade
+FROM pedido
+JOIN item_pedido ON item_pedido.id_pedido = pedido.id_pedido
+JOIN prato ON item_pedido.id_prato = prato.id_prato
+WHERE item_pedido.id_pedido = 1; 
+
+SELECT MAX(LAST_INSERT_ID()) from pedido;
+
+SELECT pedido.id_pedido, pedido.id_cliente, pedido.status, cliente.nome_cliente, cliente.telefone, 
+            cliente.rua, cliente.cidade, cliente.cod_Postal, cliente.historico_pedidos
+            FROM pedido
+            JOIN cliente ON pedido.id_cliente = cliente.id_cliente
+            WHERE pedido.id_pedido = 6;
+
+SELECT salgado.id_prato, salgado.recheio, salgado.massa, salgado.tipo_salgado FROM salgado JOIN prato on salgado.id_prato=prato.id_prato WHERE nome_prato = 'Pastel de milho';
+
+SELECT adm.id_adm, nome_adm, senha FROM adm WHERE senha = '#3391Adm' and id_adm = 0;
